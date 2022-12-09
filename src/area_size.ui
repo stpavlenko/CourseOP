@@ -42,7 +42,7 @@
      <widget class="QLineEdit" name="input"/>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="send">
       <property name="text">
        <string>отправить</string>
       </property>
