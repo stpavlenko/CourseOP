@@ -73,7 +73,7 @@ class Main(QMainWindow):
 class cell(QWidget):
     def __init__(self):
         super().__init__()
-        uic.loadUi('cell.ui',self)
+        uic.loadUi('input.ui',self)
         global button_list
 
         button = self.sender()
