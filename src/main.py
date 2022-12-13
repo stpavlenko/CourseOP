@@ -7,11 +7,12 @@ from PyQt6 import QtGui, QtCore
 import sys
 import time
 import math
-import operator
+
 
 
 main_w = ''
 size = 0
+button_list = []
 
 class Myapp(QWidget):
     def __init__(self):
@@ -35,7 +36,9 @@ class Myapp(QWidget):
         except:
             self.status.setText("введены неверные данные")
 
+cell_w = ''
 class Main(QMainWindow):
+    
     def __init__(self):
         super().__init__()
         global size
@@ -51,20 +54,36 @@ class Main(QMainWindow):
 
         self.label_2.setText(f"1 клетка это {round(size/64,2)} м^2")
         
-        button_list = []
+        global button_list
         for i in range(64):
             if i != 0:
-                button_list.append([eval(f"self.pushButton_{i+1}"),i])
+                button_list.append(eval(f"self.pushButton_{i+1}"))
             else:
-                button_list.append([eval("self.pushButton"),i])
+                button_list.append(eval("self.pushButton"))
 
         for i in range(64):
-            button_list[i][0].clicked.connect(lambda:self.on_key_click())
+            button_list[i].clicked.connect(lambda:self.on_key_click())
 
 
     def on_key_click(self):
+        global cell_w
+        cell_w = cell()
+        cell_w.show()
+
+class cell(QWidget):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('cell.ui',self)
+        global button_list
+
         button = self.sender()
-        print(button)
+        number = 0
+        for i in button_list:
+            if i == button:
+                number = button_list.index(i)
+                break
+        self.setWindowTitle(f'{number+1} ячейка')
+        
 
 if __name__ == "__main__":
 

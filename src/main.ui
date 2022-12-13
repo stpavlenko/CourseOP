@@ -580,9 +580,9 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
-          <widget class="QPushButton" name="pushButton_57">
+          <widget class="QPushButton" name="pushButton_41">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -595,7 +595,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_58">
+          <widget class="QPushButton" name="pushButton_42">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -608,7 +608,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_59">
+          <widget class="QPushButton" name="pushButton_43">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -621,7 +621,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_60">
+          <widget class="QPushButton" name="pushButton_44">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -634,7 +634,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_61">
+          <widget class="QPushButton" name="pushButton_45">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -647,7 +647,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_62">
+          <widget class="QPushButton" name="pushButton_46">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -660,7 +660,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_63">
+          <widget class="QPushButton" name="pushButton_47">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -673,7 +673,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_64">
+          <widget class="QPushButton" name="pushButton_48">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -796,9 +796,9 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
-          <widget class="QPushButton" name="pushButton_41">
+          <widget class="QPushButton" name="pushButton_57">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -811,7 +811,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_42">
+          <widget class="QPushButton" name="pushButton_58">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -824,7 +824,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_43">
+          <widget class="QPushButton" name="pushButton_59">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -837,7 +837,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_44">
+          <widget class="QPushButton" name="pushButton_60">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -850,7 +850,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_45">
+          <widget class="QPushButton" name="pushButton_61">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -863,7 +863,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_46">
+          <widget class="QPushButton" name="pushButton_62">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -876,7 +876,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_47">
+          <widget class="QPushButton" name="pushButton_63">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -889,7 +889,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_48">
+          <widget class="QPushButton" name="pushButton_64">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
