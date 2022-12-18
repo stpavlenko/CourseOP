@@ -1,13 +1,13 @@
 номер ячейки;растение;картинка;время полива (дни)
-30;клубника;butterfly;
-37;клубника;butterfly;
-36;яблоня;annonymous;
-35;яблоня;annonymous;
-28;;annonymous;
-29;крутое растение;annonymous;
-30;малина;raspberry;
-27;яблоко;annonymous;
-27;яблоня;apple;
-35;слива;plum;
+30;клубника;butterfly;;
+37;клубника;butterfly;;
+36;яблоня;annonymous;;
+35;яблоня;annonymous;;
+28;;annonymous;;
+29;крутое растение;annonymous;;
+30;малина;raspberry;;
+27;яблоко;annonymous;;
+27;яблоня;apple;;
+35;слива;plum;;
 38;pear;annonymous;5;
 38;груша;pear;5;

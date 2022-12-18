@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Выберете клетку и укажите растение</string>
+       <string>Выберите клетку и укажите растение</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
