@@ -6,7 +6,7 @@ from PyQt6.QtCore import pyqtSignal
 # from PyQt6.QtGui import QIcon, QFont, QPixmap, QMovie, QRegion
 
 import sys
-import time
+import datetime
 import math
 import csv
 
@@ -66,12 +66,28 @@ class Main(QMainWindow):
 
         for i in range(64):
             button_list[i].clicked.connect(lambda:self.on_key_click())
-
+        self.updateTime.clicked.connect(self.update)
 
     # def on_key_click(self):
     #     global cell_w
     #     cell_w = cell()
     #     cell_w.show()
+    def update(self):
+        r = csv.reader(open(f'db.csv',encoding='utf-8')) # Here your csv file
+        lines = list(r)
+        for i in lines[1:]:
+            line = i[0].split(';')
+            box = i[0].split(';')[0]
+            tdelta = datetime.datetime.now() - datetime.datetime(int(line[4].split('-')[0]),int(line[4].split('-')[1]),\
+            int(line[4].split(' ')[0].split('-')[2]),int(line[4].split(' ')[1].split(':')[0]),int(line[4].split(' ')[1].split(':')[1]),\
+            int(line[4].split(' ')[1].split(':')[2].split('.')[0]),int(line[4].split('.')[1]))
+            tdeltasec = tdelta.total_seconds()
+            if tdeltasec > float(line[3]):  
+                eval(f"self.pushButton_{box}").setStyleSheet('background-color: #E10600}')
+            else:
+                eval(f"self.pushButton_{box}").setStyleSheet('background-color: #F0F0F0}')
+
+
 
     def on_key_click(self):
         self.win = cell()
@@ -130,14 +146,16 @@ class cell(QWidget):
         for i in lines[1:]:
             line = i[0].split(';')
             if int(number) == int(line[0]):
-                self.status.setText(f"Название: {line[1]} Поливать каждые {line[3]} дня(дней)")  
+                self.status.setText(f"Название: {line[1]} Поливать каждые {line[3]} сек.")  
                 
         self.save.clicked.connect(self.plants)
         self.delite.clicked.connect(self.delit)
+        self.water.clicked.connect(self.pour)
 
     def plants(self):
         inputText = self.textEdit.toPlainText()
         inputTime = self.timeEdit.time().second()
+        createTime = datetime.datetime.now()
 
         r = csv.reader(open(f'plants.csv',encoding='utf-8')) # Here your csv file
         lines = list(r)
@@ -148,7 +166,7 @@ class cell(QWidget):
                 img = i[0].split(';')[1]
         global number
         
-        output = f"\n{number};{inputText};{img};{inputTime};"
+        output = f"\n{number};{inputText};{img};{inputTime};{createTime};"
         with open('db.csv','a', encoding='utf-8', newline='\n') as file:
             file.write(output)
 
@@ -162,8 +180,22 @@ class cell(QWidget):
         for i in lines[1:]:
             line = i[0].split(';')
             if int(number) != int(line[0]):
-                output += f"\n{line[0]};{line[1]};{line[2]};{line[3]};"
+                output += f"\n{line[0]};{line[1]};{line[2]};{line[3]};{line[4]}"
 
+
+        with open('db.csv','w', encoding='utf-8', newline='\n') as file:
+            file.write(output)
+
+    def pour(self):
+        r = csv.reader(open(f'db.csv',encoding='utf-8')) # Here your csv file
+        lines = list(r)
+        output = ''
+        for i in lines[1:]:
+            line = i[0].split(';')
+            if int(number) != int(line[0]):
+                output += f"\n{line[0]};{line[1]};{line[2]};{line[3]};{line[4]}"
+            else:
+                output += f"\n{line[0]};{line[1]};{line[2]};{line[3]};{datetime.datetime.now()}"
 
         with open('db.csv','w', encoding='utf-8', newline='\n') as file:
             file.write(output)

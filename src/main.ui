@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1306</width>
-    <height>803</height>
+    <width>1049</width>
+    <height>738</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -912,6 +912,13 @@
      </widget>
     </item>
     <item>
+     <widget class="QPushButton" name="updateTime">
+      <property name="text">
+       <string>Обновить время</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QLabel" name="label_2">
       <property name="font">
        <font>
@@ -933,7 +940,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1306</width>
+     <width>1049</width>
      <height>26</height>
     </rect>
    </property>
