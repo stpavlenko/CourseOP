@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>553</width>
-    <height>424</height>
+    <height>516</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,27 +19,71 @@
      <x>60</x>
      <y>80</y>
      <width>430</width>
-     <height>102</height>
+     <height>216</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="label_3">
       <property name="font">
        <font>
         <pointsize>18</pointsize>
+        <stylestrategy>PreferAntialias</stylestrategy>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Умная теплица</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="layoutDirection">
        <enum>Qt::RightToLeft</enum>
       </property>
       <property name="text">
-       <string>Введите размер участка в м^2</string>
+       <string>Введите количество грядок</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QLineEdit" name="input"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="text">
+       <string>Введите длину грядки в метрах</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="input_2"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="status">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QPushButton" name="send">
@@ -49,19 +93,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QLabel" name="status">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>200</y>
-     <width>431</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
   </widget>
  </widget>
  <resources/>

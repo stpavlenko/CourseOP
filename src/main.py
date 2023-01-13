@@ -1,19 +1,22 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import *
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
 from PyQt6 import QtGui, QtCore
 from PyQt6.QtCore import pyqtSignal
-# from PyQt6.QtGui import QIcon, QFont, QPixmap, QMovie, QRegion
+from PyQt6.QtGui import *
 
 import sys
 import datetime
+import time
 import math
 import csv
+import asyncio
 
 
 
 main_w = ''
-size = 0
+count = 0
+length = 0
 button_list = []
 
 class Myapp(QWidget):
@@ -25,111 +28,148 @@ class Myapp(QWidget):
 
     def sayHello(self):
         global main_w
-        global size
-        inputText = self.input.text()
+        global count
+        global length 
         try:
-            self.status.setText(f"Участок размером: {int(inputText)}, успешно записан")
-            size = int(inputText)
-            # a = Main()
-            # a.show()
+            count = int(self.input.text())
+            length = int(self.input_2.text())
+            if count > 6 or length > 6:
+                raise
             self.close()
             main_w = Main()
             main_w.show()
         except:
             self.status.setText("введены неверные данные")
 
-cell_w = ''
-class Main(QMainWindow):
+class Main(QWidget):
     
     def __init__(self):
         super().__init__()
-        global size
-        uic.loadUi('main.ui',self)
-        self.setWindowTitle('Sprinkle')
-
-        # 1 загрузка бд
-        r = csv.reader(open(f'db.csv',encoding='utf-8'))
-        lines = list(r)
-        for i in lines[1:]:
-            box = i[0].split(';')[0]
-            img = i[0].split(';')[2]
-
-            eval(f"self.pushButton_{box}").setIcon(QtGui.QIcon(f'img/{img}.png'))
-            eval(f"self.pushButton_{box}").setText(' ')
-            eval(f"self.pushButton_{box}").setIconSize(QtCore.QSize(50,50))
-
-        self.label_2.setText(f"1 клетка это {round(size/64,2)} м^2")
+        f = open("db.csv", "w")
+        f.truncate()
+        f.close()
+        self.initUI()
         
+    def initUI(self):
+        global count
+        global length
         global button_list
-        for i in range(64):
-            button_list.append(eval(f"self.pushButton_{i+1}"))
 
-        for i in range(64):
-            button_list[i].clicked.connect(lambda:self.on_key_click())
-        self.updateTime.clicked.connect(self.update)
+        self.setWindowTitle('Smart greenhouse')
+        self.setGeometry(0, 0, 1050, 740)
 
-    # def on_key_click(self):
-    #     global cell_w
-    #     cell_w = cell()
-    #     cell_w.show()
-    def update(self):
-        r = csv.reader(open(f'db.csv',encoding='utf-8')) # Here your csv file
-        lines = list(r)
-        for i in lines[1:]:
-            line = i[0].split(';')
-            box = i[0].split(';')[0]
-            tdelta = datetime.datetime.now() - datetime.datetime(int(line[4].split('-')[0]),int(line[4].split('-')[1]),\
-            int(line[4].split(' ')[0].split('-')[2]),int(line[4].split(' ')[1].split(':')[0]),int(line[4].split(' ')[1].split(':')[1]),\
-            int(line[4].split(' ')[1].split(':')[2].split('.')[0]),int(line[4].split('.')[1]))
-            tdeltasec = tdelta.total_seconds()
-            if tdeltasec > float(line[3]):  
-                eval(f"self.pushButton_{box}").setStyleSheet('background-color: #E10600}')
-            else:
-                eval(f"self.pushButton_{box}").setStyleSheet('background-color: #F0F0F0}')
+        l_count = math.floor(length*100/80)
+        title = QLabel('Выберете ячейку и укажите растение')
+        title.setFont(QFont('Montseratt Medium', 18))
+        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
+        main = QVBoxLayout()
+        main.setSpacing(1)
 
+        hl = QHBoxLayout()
+        hl.setSpacing(10)
+
+        main.addWidget(title)
+        main.addLayout(hl)
+        
+        for i in range(count):
+            vl = QVBoxLayout()
+            vl.setSpacing(10)
+            hl.addLayout(vl)
+            for j in range(l_count):
+                push = QPushButton('+')
+                push.setMaximumSize(64,64)
+                push.setMinimumSize(64,64)
+                push.setSizePolicy(QSizePolicy.Policy.Expanding,QSizePolicy.Policy.Expanding)
+                vl.addWidget(push)
+                button_list.append(push)
+                push.clicked.connect(self.on_key_click)
+
+        info = QLabel(f"всего {l_count*count} мест для размещения растений\nРекомендуемое расстояние между растениями 80см")
+        info.setFont(QFont('Montseratt Medium', 12))
+        info.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        main.addWidget(info)
+
+        compat = QPushButton('посмотреть таблицу совместимости')
+        compat.setFont(QFont('Montseratt Medium', 8))
+        compat.setSizePolicy(QSizePolicy.Policy.Expanding,QSizePolicy.Policy.Expanding)
+        compat.setMaximumSize(200,64)
+        compat.clicked.connect(self.table)
+        main.addWidget(compat)
+
+        self.setLayout(main)
+
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.update)
+        self.timer.start(1000)
+
+        
+
+    def table(self):
+        self.win = compat_table()
+        self.win.show()
 
     def on_key_click(self):
         self.win = cell()
         self.win.window_closed.connect(self.add)
         self.win.show()
 
+    def update(self):
+        global button_list
+        r = csv.reader(open(f'db.csv',encoding='utf-8')) # Here your csv file
+        lines = list(r)
+        for i in lines[1:]:
+            line = i[0].split(';')
+            box = int(i[0].split(';')[0]) -1 
+            tdelta = datetime.datetime.now() - datetime.datetime(int(line[4].split('-')[0]),int(line[4].split('-')[1]),\
+            int(line[4].split(' ')[0].split('-')[2]),int(line[4].split(' ')[1].split(':')[0]),int(line[4].split(' ')[1].split(':')[1]),\
+            int(line[4].split(' ')[1].split(':')[2].split('.')[0]),int(line[4].split('.')[1]))
+            tdeltasec = tdelta.total_seconds()
+            if tdeltasec > float(line[3]):  
+                button_list[box].setStyleSheet('background-color: #E10600}')
+            else:
+                button_list[box].setStyleSheet('background-color: #F0F0F0}')
+
     # обновление бд
     def add(self):
+        global button_list
+        global count
+        global length
         r = csv.reader(open(f'db.csv',encoding='utf-8')) # Here your csv file
         lines = list(r)
 
         boxes = []
 
         for i in lines[1:]:
-            box = i[0].split(';')[0]
+            box = int(i[0].split(';')[0]) -1
             boxes.append(box)
             img = i[0].split(';')[2]
 
-            eval(f"self.pushButton_{box}").setIcon(QtGui.QIcon(f'img/{img}.png'))
-            eval(f"self.pushButton_{box}").setText(' ')
-            eval(f"self.pushButton_{box}").setIconSize(QtCore.QSize(50,50))
+            button_list[box].setIcon(QtGui.QIcon(f'img/{img}.png'))
+            button_list[box].setText(' ')
+            button_list[box].setIconSize(QtCore.QSize(50,50))
 
-        clear_boxes = []
-        for j in range(1,65):
-            if str(j) not in boxes:
-                clear_boxes.append(int(j))
+        all_cell = count*math.floor(length*100/80)
+        for j in range(all_cell):
+            if j not in boxes:
+                button_list[j].setIcon(QtGui.QIcon(''))
+                button_list[j].setText('+')
+                button_list[j].setIconSize(QtCore.QSize(50,50))
+                button_list[j].setStyleSheet('background-color: #F0F0F0}')
 
-        for i in clear_boxes:
-                eval(f"self.pushButton_{i}").setIcon(QtGui.QIcon(''))
-                eval(f"self.pushButton_{i}").setText('+')
-                eval(f"self.pushButton_{i}").setIconSize(QtCore.QSize(50,50))
-                eval(f"self.pushButton_{i}").setStyleSheet('background-color: #F0F0F0}')
+class compat_table(QWidget):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('table.ui',self)
 
 number = 0
-
 class cell(QWidget):
-
     window_closed = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         uic.loadUi('input.ui',self)
+        self.setGeometry(0, 0, 600, 400)
         global button_list
 
         button = self.sender()
@@ -140,30 +180,43 @@ class cell(QWidget):
                 number = button_list.index(i) + 1
                 break
         self.setWindowTitle(f'{number} ячейка')
-
+        flag = False
         r = csv.reader(open(f'db.csv',encoding='utf-8')) # Here your csv file
         lines = list(r)
         for i in lines[1:]:
             line = i[0].split(';')
             if int(number) == int(line[0]):
-                self.status.setText(f"Название: {line[1]} Поливать каждые {line[3]} сек.")  
-                
+                self.status.setText(f"Название: {line[1]}\nПоливать каждые {line[3]} сек.") 
+                flag = True
+        if flag == False:
+            self.spravka.hide()
+            self.water.hide()
+            self.delite.hide()
+            self.status.hide()
+            self.change.hide()
+        else:
+            self.choose.hide()
+            self.label.hide()
+            self.save.hide()                
+
         self.save.clicked.connect(self.plants)
+        self.change.clicked.connect(self.changes)
         self.delite.clicked.connect(self.delit)
         self.water.clicked.connect(self.pour)
+        self.spravka.clicked.connect(self.info)
 
     def plants(self):
-        inputText = self.textEdit.toPlainText()
-        inputTime = self.timeEdit.time().second()
+        inputText = str(self.choose.currentText())
         createTime = datetime.datetime.now()
 
         r = csv.reader(open(f'plants.csv',encoding='utf-8')) # Here your csv file
         lines = list(r)
         img = 'annonymous'
+        lines[0][0] = lines[0][0].replace('\ufeff', '') 
         for i in lines:
-            i[0] = i[0].replace('\ufeff', '') 
             if inputText == i[0].split(';')[0]:
                 img = i[0].split(';')[1]
+                inputTime = i[0].split(';')[2]
         global number
         
         output = f"\n{number};{inputText};{img};{inputTime};{createTime};"
@@ -171,6 +224,11 @@ class cell(QWidget):
             file.write(output)
 
         self.status.setText('данные успешно сохранены')  
+    
+    def changes(self):
+        self.choose.show()
+        self.label.show() 
+        self.save.show()       
 
     def delit(self):
         r = csv.reader(open(f'db.csv',encoding='utf-8')) # Here your csv file
@@ -200,20 +258,57 @@ class cell(QWidget):
         with open('db.csv','w', encoding='utf-8', newline='\n') as file:
             file.write(output)
 
+    def info(self):
+        self.win = help()
+        self.win.show()
+
     def closeEvent(self, event):
         self.window_closed.emit()
         event.accept()
 
-    def timerEvent():
-        global time
-        time = time.addSecs(1)
-        print(time.toString("hh:mm:ss"))
+class help(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
 
-    timer = QtCore.QTimer()
-    time = QtCore.QTime(0, 0, 0)
+    def initUI(self):
+        self.setGeometry(0, 0, 400, 400)
+        global button_list
 
-    timer.timeout.connect(timerEvent)
-    timer.start(10)
+        button = self.sender()
+        global number
+
+        for i in button_list:
+            if i == button:
+                number = button_list.index(i) + 1
+                break
+        self.setWindowTitle(f'{number} ячейка')
+
+        r = csv.reader(open(f'db.csv',encoding='utf-8')) # Here your csv file
+        lines = list(r)
+        for i in lines[1:]:
+            line = i[0].split(';')
+            if int(number) == int(line[0]):
+                name = line[1]
+
+        title = QLabel(name)
+        title.setFont(QFont('Montseratt Medium', 18))
+        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        f = open(f'info/{name}.txt',encoding='utf-8')
+        lines = f.readlines()
+        text =''
+        for line in lines:
+            text +=line
+        desc = QLabel(text)
+        desc.setWordWrap(True)  
+        
+        main = QVBoxLayout()
+        main.setSpacing(1)
+
+        main.addWidget(title) 
+        main.addWidget(desc) 
+        self.setLayout(main)
         
 
 if __name__ == "__main__":
@@ -222,5 +317,4 @@ if __name__ == "__main__":
 
     window = Myapp()
     window.show()
-
     app.exec()

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>758</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>751</width>
+     <height>471</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>100</width>
+     <height>177</height>
+    </size>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustIgnored</enum>
+   </property>
+   <property name="autoScroll">
+    <bool>true</bool>
+   </property>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>300</number>
+   </attribute>
+   <attribute name="verticalHeaderDefaultSectionSize">
+    <number>72</number>
+   </attribute>
+   <attribute name="verticalHeaderMinimumSectionSize">
+    <number>42</number>
+   </attribute>
+   <row>
+    <property name="text">
+     <string>Томаты</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>Огурцы</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>Болгарские перцы</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>Капуста</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>Лук</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>Розы</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>Совместимые растения</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Несовместимые растения</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string>Базилик, морковь, ноготки, петрушка, настурции</string>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string>Пасленовые растения, такие как перец и баклажаны</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string>Кукуруза, горох, редис, подсолнечник
+</string>
+    </property>
+   </item>
+   <item row="1" column="1">
+    <property name="text">
+     <string>Пасленовые растения, такие как помидоры и перец
+</string>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string>Базилик, морковь, лук, душица, петрушка</string>
+    </property>
+   </item>
+   <item row="2" column="1">
+    <property name="text">
+     <string>Помидоры, баклажаны</string>
+    </property>
+   </item>
+   <item row="3" column="0">
+    <property name="text">
+     <string>Свекла, сельдерей, ромашка, мангольд, укроп, салат, лук, тимьян
+</string>
+    </property>
+   </item>
+   <item row="3" column="1">
+    <property name="text">
+     <string>Клубника, помидоры, перец, баклажаны
+</string>
+    </property>
+   </item>
+   <item row="4" column="0">
+    <property name="text">
+     <string>Свекла, морковь, ромашка, салат-латук, клубника
+</string>
+    </property>
+   </item>
+   <item row="4" column="1">
+    <property name="text">
+     <string>Горох, фасоль
+</string>
+    </property>
+   </item>
+   <item row="5" column="0">
+    <property name="text">
+     <string>Чеснок, шнитт-лук, бурачник, ноготки, тимьян
+</string>
+    </property>
+   </item>
+   <item row="5" column="1">
+    <property name="text">
+     <string>овощи, особенно из семейства пасленовых, такие как помидоры, перец и баклажаны
+</string>
+    </property>
+   </item>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
